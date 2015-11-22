@@ -9,7 +9,8 @@ class ViceAdmin(admin.ModelAdmin):
 
 @admin.register(GiftCard)
 class GiftCardAdmin(admin.ModelAdmin):
-    list_display = ('gift_card_name', 'gift_card_num', 'gift_card_value',)
+    list_display = ('gift_card_name', 'gift_card_num', 'gift_card_value',
+                    'bounty', 'pledge')
 
 
 @admin.register(Bounty)

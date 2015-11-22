@@ -17,12 +17,11 @@ class Vice(models.Model):
 class Bounty(models.Model):
     vice = models.ForeignKey(Vice)
     collected = models.BooleanField(default=False)
-    collected_by = models.ForeignKey('users.UserProfile', default=None)
-    busted_picture = models.ImageField()
+    collected_by = models.ForeignKey('users.UserProfile', blank=True, null=True)
+    busted_picture = models.ImageField(blank=True, null=True)
 
     def __str__(self):
-        return "{}, {}, {}, {}, {}".format(self.vice,
-                                           self.amount,
+        return "{}, {}, {}, {}".format(self.vice,
                                            self.collected,
                                            self.collected_by,
                                            self.busted_picture)
@@ -49,10 +48,9 @@ class GiftCard(models.Model):
     )
     gift_card_name = models.CharField(max_length=250)
     gift_card_num = models.CharField(max_length=100)
-    gift_card_value = models.DecimalField(max_digits=8, decimal_places=2,
-                                          choices=DENOMINATION)
-    bounty = models.ForeignKey(Bounty)
-    pledge = models.ForeignKey(Pledge)
+    gift_card_value = models.CharField(max_length=10, choices=DENOMINATION)
+    bounty = models.ForeignKey(Bounty, blank=True, null=True)
+    pledge = models.ForeignKey(Pledge, blank=True, null=True)
 
     def pledge_gift_card(self):
         pledge_card = GiftCard.objects.get(pk=self.pledge.user.id)
