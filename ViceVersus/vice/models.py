@@ -14,6 +14,32 @@ class Vice(models.Model):
                                            self.strikes)
 
 
+class Bounty(models.Model):
+    vice = models.ForeignKey(Vice)
+    collected = models.BooleanField(default=False)
+    collected_by = models.ForeignKey('users.UserProfile', default=None)
+    busted_picture = models.ImageField()
+
+    def __str__(self):
+        return "{}, {}, {}, {}, {}".format(self.vice,
+                                           self.amount,
+                                           self.collected,
+                                           self.collected_by,
+                                           self.busted_picture)
+
+
+class Pledge(models.Model):
+    user = models.ForeignKey('users.UserProfile')
+    vice = models.ForeignKey(Vice)
+
+    def all_pledges(self):
+        pledges = Pledge.objects.all(pk=self.vice_id)
+        return pledges
+
+    def __str__(self):
+        return "{}, {}".format(self.user, self.vice)
+
+
 class GiftCard(models.Model):
     DENOMINATION = (
         ('25', '$25.00'), ('50', '$50.00'), ('75', '$75.00'),
@@ -50,29 +76,3 @@ class GiftCard(models.Model):
                                    self.gift_card_value,
                                    self.bounty,
                                    self.pledge)
-
-
-class Bounty(models.Model):
-    vice = models.ForeignKey(Vice)
-    collected = models.BooleanField(default=False)
-    collected_by = models.ForeignKey('users.UserProfile', default=None)
-    busted_picture = models.ImageField()
-
-    def __str__(self):
-        return "{}, {}, {}, {}, {}".format(self.vice,
-                                           self.amount,
-                                           self.collected,
-                                           self.collected_by,
-                                           self.busted_picture)
-
-
-class Pledge(models.Model):
-    user = models.ForeignKey('users.UserProfile')
-    vice = models.ForeignKey(Vice)
-
-    def all_pledges(self):
-        pledges = Pledge.objects.all(pk=self.vice_id)
-        return pledges
-
-    def __str__(self):
-        return "{}, {}".format(self.user, self.vice)
