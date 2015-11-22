@@ -19,4 +19,4 @@ class BountyAdmin(admin.ModelAdmin):
 
 @admin.register(Pledge)
 class PledgeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'amount', 'end_date',)
+    list_display = ('user', 'vice')

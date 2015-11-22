@@ -3,7 +3,7 @@ from django.db import models
 
 class Vice(models.Model):
     user = models.ForeignKey('users.UserProfile')
-    sponsor = models.ForeignKey('users.UserProfile')
+    sponsor = models.ForeignKey('users.UserProfile', related_name='sponsor')
     created = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
     strikes = models.IntegerField(blank=True, null=True)
