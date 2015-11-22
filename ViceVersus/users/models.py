@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from vice.models import GiftCard
+
 
 
 class UserProfile(models.Model):
@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=250, null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
     locale = models.CharField(max_length=10, null=True, blank=True)
-    gift_cards = models.ForeignKey(GiftCard)
+    gift_cards = models.ForeignKey('vice.GiftCard')
 
     def __str__(self):
         return "{}, {}, {}, {}, {}".format(self.user_name, self.gender,

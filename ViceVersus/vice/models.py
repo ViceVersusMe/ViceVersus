@@ -1,10 +1,9 @@
 from django.db import models
-from users.models import UserProfile
 
 
 class Vice(models.Model):
-    user = models.ForeignKey(UserProfile)
-    sponsor = models.ForeignKey(UserProfile)
+    user = models.ForeignKey('users.UserProfile')
+    sponsor = models.ForeignKey('users.UserProfile')
     created = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
     strikes = models.IntegerField(blank=True, null=True)
@@ -56,7 +55,7 @@ class GiftCard(models.Model):
 class Bounty(models.Model):
     vice = models.ForeignKey(Vice)
     collected = models.BooleanField(default=False)
-    collected_by = models.ForeignKey(UserProfile, default=None)
+    collected_by = models.ForeignKey('users.UserProfile', default=None)
     busted_picture = models.ImageField()
 
     def __str__(self):
@@ -68,7 +67,7 @@ class Bounty(models.Model):
 
 
 class Pledge(models.Model):
-    user = models.ForeignKey(UserProfile)
+    user = models.ForeignKey('users.UserProfile')
     vice = models.ForeignKey(Vice)
 
     def all_pledges(self):
