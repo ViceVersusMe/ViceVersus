@@ -1,2 +1,2 @@
 # ViceVersus
-Crowdsoured Commitment App
+Crowdsourced Commitment App
